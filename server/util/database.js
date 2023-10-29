@@ -6,4 +6,4 @@ const sequelize = new Sequelize('snapclips', 'root', '',
         dialect: 'mysql',
         host: 'Localhost'
     });
-module.exports = sequelize;
+module.exports = sequelize; 

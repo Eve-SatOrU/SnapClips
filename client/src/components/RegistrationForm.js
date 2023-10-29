@@ -1,3 +1,5 @@
+// src/components/RegistrationForm.js
+
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -10,15 +12,24 @@ function RegistrationForm() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post('http://localhost:3000/register', formData);
-      console.log(response.data); // Handle success
+  
+      if (response && response.data) {
+        console.log(response.data); // Handle success (e.g., show a success message)
+      } else {
+        console.error('Response data is undefined.');
+      }
     } catch (error) {
-      console.error(error.response.data); // Handle registration error
+      if (error.response && error.response.data) {
+        console.error(error.response.data); // Handle registration error (e.g., show an error message)
+      } else {
+        console.error('Error response data is undefined.');
+      }
     }
   }
-
+  
   return (
     <div>
       <h2>Registration</h2>

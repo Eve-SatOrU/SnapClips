@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('./util/database');
 const session = require('express-session');
+const cors = require('cors');
 // env 
 require('dotenv').config();
 
@@ -14,17 +15,15 @@ app.use(
     saveUninitialized: true,
   })
 );
+// cors 
+app.use(cors(
+  {
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }
+));
 
-
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// app.set('view engine', 'pug');
-// app.set('views', 'views');
-
-// app.use(express.static('public'));
-
-
 const routes = require('./routes/routes');
 app.use('/', routes);
 
