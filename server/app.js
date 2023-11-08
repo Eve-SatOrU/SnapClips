@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const sequelize = require('./util/database');
 const session = require('express-session');
 const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+
 // env 
 require('dotenv').config();
 
@@ -23,7 +26,12 @@ app.use(cors(
   }
 ));
 
-app.use(bodyParser.json());
+// i remove it later xDDD
+app.set("view engine", "pug");
+app.set("views", "views");
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static('public'));
+// app.use(bodyParser.json());
 const routes = require('./routes/routes');
 app.use('/', routes);
 

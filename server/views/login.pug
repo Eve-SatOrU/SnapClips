@@ -1,0 +1,148 @@
+meta(charset="UTF-8")
+meta(http-equiv="X-UA-Compatible", content="IE=edge")
+meta(name="viewport", content="width=device-width,initial-scale=1")
+title Pod - Live podcast app landing page
+//
+   
+  		- favicon
+  	
+link(rel="shortcut icon", href="./favicon.ico", type="image/x-icon")
+//
+   
+  		- custom css link
+  	
+link(rel="stylesheet", href="./css/style.css")
+//
+   
+  		- google font link
+  	
+link(rel="preconnect", href="https://fonts.googleapis.com")
+link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap", rel="stylesheet")
+//
+   
+  		- #HEADER
+  	
+header
+  .container
+    a.logo(href="/")
+      img(src="./images/logo2.png", alt=" logo" ,style="width: 100px; height: 100px;")
+    nav.navbar(data-navbar)
+      button.nav-close-btn(data-nav-close-btn)
+        ion-icon(name="close-outline")
+      ul.navbar-list
+        li
+          a.navbar-link(href="/") Home
+        li
+          a.navbar-link(href="/about") about
+        li
+          a.navbar-link(href="/contact") contact
+        li
+          a.navbar-link(href="/tiktok-download") Download Video 
+        li
+          a.navbar-link(href="/image-download") Download Images
+        if user 
+          li 
+            a.navbar-link(href=href=`/profile/${user.id}`) Profile
+          li
+            a.navbar-link(href="/history") History
+          li
+            button 
+              a.btn-primary(href="/register")  Register
+
+        else
+          li
+            button 
+              a.btn-primary(href="/register")  Register
+    button.nav-open-btn(data-nav-open-btn)
+      ion-icon(name="menu")
+
+    main
+      // Overview Section
+      section.overview#overview
+        .container1
+        if error
+            .red
+            .alert.alert-danger= error
+        form(action="/login", method="post")
+            h2 Login
+            label.label(for="userName") Full Name
+            input.box(type="text", name="userName", placeholder="Type your Full Name", required)#userName
+            label.label(for="userPassword") Password
+            .password-container
+            input.box(type="password", name="userPassword", placeholder="Type your password", required)#userPassword
+            //- label.password-label
+                input#showPassword(type="checkbox")
+            br
+            button.btn-primary(type="submit") Login
+            br
+            a.link1(href="/register")
+                p.link1 Register
+        section.overview#overview
+           
+
+    // Footer
+footer
+  .container
+    .footer-brand
+      a.footer-logo(href="#")
+        img(src="./images/logo2.png", alt=" logo" ,style="width: 100px; height: 100px;")
+      p Follow us on
+      ul.social-list
+        li
+          a.social-link(href="https://youtube.com/", target="_blank")
+            ion-icon(name="logo-youtube")
+        li
+          a.social-link(href="https://github.com/", target="_blank")
+            ion-icon(name="logo-github")
+        li
+          a.social-link(href="https://twitter.com", target="_blank")
+            ion-icon(name="logo-twitter")
+        li
+          a.social-link(href="https://instagram.com", target="_blank")
+            ion-icon(name="logo-instagram")
+    .footer-link-box
+      ul.footer-list
+        li
+          h3.h5.footer-item-title Company
+        li
+          a.footer-link(href="#") About Us
+        li
+          a.footer-link(href="#") Pricing
+      ul.footer-list
+        li
+          h3.h5.footer-item-title Products
+        li
+          a.footer-link(href="#") Help Center
+        li
+          a.footer-link(href="#") Contact
+      ul.footer-list
+        li
+          h3.h5.footer-item-title Resources
+        li
+          a.footer-link(href="#") FAQ’S
+        li
+          a.footer-link(href="#") Terms & Conditions
+      //- .footer-btn-group
+      //-   a(href="#")
+      //-     img(src="./images/footer-1.png", alt="apple store")
+  //-       a(href="#")
+  //-         img(src="./images/footer-2.png", alt="google play store")
+  //- p.copyright © Copyrights 2022 codewithsadee All rights reserved.
+//
+   
+  		- #GO TO TOP
+  	
+a.go-top(href="#top", data-go-top)
+  ion-icon(name="chevron-up")
+//
+   
+  		- custom js link
+  	
+script(src="./js/script.js")
+//
+   
+  		- ionicon link
+  	
+script(type="module", src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js")
+script(nomodule, src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js")

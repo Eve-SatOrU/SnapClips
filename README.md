@@ -4,7 +4,7 @@
  also remove watermark from images.
 ## feautures
 - [] --> login and register stuff i can add register using google
-- [] --> user can see history of thier downloads
+<!-- - [] --> user can see history of thier downloads -->
 - [] --> user can see profile
 - [] --> video stuuf :
 - [] --> put link of video instagram or tiktok 
@@ -39,3 +39,16 @@ npm start
 
 ## License
 this project is under GNU GENERAL PUBLIC LICENSE.
+
+<!-- 
+The default jimp configuration.
+
+Supported types:
+
+@jimp/jpeg
+@jimp/png
+@jimp/bmp
+@jimp/tiff
+@jimp/gif
+
+ -->

@@ -2,6 +2,19 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const { Op } = require('sequelize');
+const multer = require('multer');
+const Jimp = require('jimp');
+const axios = require('axios');
+const path = require('path');
+const { url } = require("@pixelbin/admin");
+
+
+exports.getindex = async(req, res, next) => {
+  const user = req.session.user;
+  res.render('index', { user });
+}
+
+
 User.beforeCreate(async (user) => {
   const salt = await bcrypt.genSalt();
   user.userPassword = await bcrypt.hash(user.userPassword, salt);
@@ -19,6 +32,9 @@ function validateStrongPassword(password) {
   }
   return true;
 }
+exports.getRegister =(req, res, next) => {
+  res.render('register');
+};
 exports.postRegister = async (req, res, next) => {
   const { userName, userPassword, email } = req.body;
 
@@ -52,7 +68,10 @@ exports.postRegister = async (req, res, next) => {
 };
 
 // login space ^^
-
+// login
+exports.getLogin =(req, res, next) => {
+  res.render('login');
+}
 exports.postLogin = (async (req, res) => {
   const { userName, userPassword } = req.body;
   try {
@@ -81,15 +100,48 @@ exports.postLogout = async (req, res) => {
       return res.status(500).json({ error: 'Logout failed' });
     }
     res.clearCookie('sid');
-    return res.status(200).json({ message: 'Logout successful' });
+    // return res.status(200).json({ message: 'Logout successful' });
+    return res.redirect('/');
   });
   }
-// profile
-exports.getprofile = async (req, res) => {
-  const user = await User.findOne({ where: { id: req.params.id } });
-  if (!req.session.user) {
-    return res.json({ status: 404, message: 'User not found' });
-  }
-  res.status(200).json({ user });
+
+
+// about
+exports.getAbout = async (req, res) => {
+  res.render('about');
 };
-// video stuff
+
+
+
+  //profile
+  exports.getprofile = async (req, res) => {
+    const user = await User.findOne({ where: { id: req.params.id } });
+    if (!req.session.user) {
+      return res.redirect('/login');
+    }
+    res.render('profile', { user }); // passing the user object to the template
+  };
+
+  //contact
+  exports.getContact = async(req, res, next) => {
+    const user = req.session.user;
+    res.render('contact', {
+      path: '/contact',
+      pageTitle: 'contact',user
+    });
+  }
+  // about
+  exports.getAbout = async (req, res) => {
+    const user = req.session.user;
+    res.render('about', {user});
+    };
+  // img
+  exports.getImg = async (req, res) => {
+    const user = req.session.user;
+    res.render('image-download-form', {user});
+    };
+// history
+exports.getHistory = async (req, res) => {
+  const user = req.session.user;
+  res.render('history', {user});
+  };
