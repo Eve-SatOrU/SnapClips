@@ -1,54 +1,24 @@
-# SnapClips
-## definition
- snapClips is website used for remove watermark for video like instargam and tiktok 
- also remove watermark from images.
-## feautures
-- [] --> login and register stuff i can add register using google
-<!-- - [] --> user can see history of thier downloads -->
-- [] --> user can see profile
-- [] --> video stuuf :
-- [] --> put link of video instagram or tiktok 
-- [] --> download video wuthout watermark 
-- [] --> user can see history of thier downloads
-- [] --> image stuff:
-- [] --> put link of image instagram or tiktok
-- [] --> download image
-- [] --> user can see history of thier downloads
-- [] --> pdf and others things later 
+# SnapClips (working with audio and images :"D)
 
-## utilations
-- [] --> use node js for backend
-- [] --> use react for frontend
-- [] --> use mysql for database
+## Table of Contents
+- [Introduction](#introduction)
+- [Branches](#branches)
+- [Contributing](#contributing)
+- [License](#license)
 
-## how use it 
-## Prequirement 
-- [] node js.
-- [] npm .
-```
-cd client 
-npm start 
-``` 
-<!-- this for run client side using react  -->
+## Introduction
 
-```
-cd server 
-npm start 
-```
-<!-- this for run server side using node js express js  -->
+SnapClips is a web application that allows users to download TikTok videos and images also audio with or without watermarks.
+## Branches
+
+SnapClips has multiple branches catering to different technologies. Choose the one that fits your requirements:
+
+- [NodeJS & React Branch](https://github.com/Eve-SatOrU/SnapClips): This branch contains the client-side and server-side implementation using React and Nodejs .
+
+- [NodeJS & Pug Branch (Server)](https:waittt): This branch contains the server-side implementation using Node.js and Pug.
+
+## Contributing
+We welcome contributions from the community. If you have suggestions or improvements, please feel free to submit a pull request.
 
 ## License
-this project is under GNU GENERAL PUBLIC LICENSE.
-
-<!-- 
-The default jimp configuration.
-
-Supported types:
-
-@jimp/jpeg
-@jimp/png
-@jimp/bmp
-@jimp/tiff
-@jimp/gif
-
- -->
+see the LICENSE.md file for details [GNU GENERAL PUBLIC LICENSE](LICENSE).

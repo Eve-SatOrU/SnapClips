@@ -9,17 +9,20 @@ const path = require('path');
 const { url } = require("@pixelbin/admin");
 
 
-exports.getindex = async(req, res, next) => {
-  const user = req.session.user;
-  res.render('index', { user });
-}
 
+
+// lesssssssssssss go 
+exports.getindex = async (req, res, next) => {
+  const user = req.session.user;
+  res.json({ user });
+};
 
 User.beforeCreate(async (user) => {
   const salt = await bcrypt.genSalt();
   user.userPassword = await bcrypt.hash(user.userPassword, salt);
 });
-//login and register lesssss gooo ^^
+
+
 function validateStrongPassword(password) {
   if (password.length < 8) {
     return false;
@@ -32,9 +35,11 @@ function validateStrongPassword(password) {
   }
   return true;
 }
-exports.getRegister =(req, res, next) => {
-  res.render('register');
+
+exports.getRegister = (req, res, next) => {
+  res.json({ message: 'Render Register form' });
 };
+
 exports.postRegister = async (req, res, next) => {
   const { userName, userPassword, email } = req.body;
 
@@ -64,15 +69,14 @@ exports.postRegister = async (req, res, next) => {
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
-  };
+  }
 };
 
-// login space ^^
-// login
-exports.getLogin =(req, res, next) => {
-  res.render('login');
-}
-exports.postLogin = (async (req, res) => {
+exports.getLogin = (req, res, next) => {
+  res.json({ message: 'Render Login form' });
+};
+
+exports.postLogin = async (req, res) => {
   const { userName, userPassword } = req.body;
   try {
     const user = await User.findOne({ where: { userName } });
@@ -86,62 +90,48 @@ exports.postLogin = (async (req, res) => {
     req.session.user = user;
     req.session.userId = user.id;
     res.status(200).json({ message: 'User logged in successfully' });
-  }
-  catch (error) {
+  } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
-// logout
+};
+
 exports.postLogout = async (req, res) => {
-  // console.log("User in session:", req.session.user);
   req.session.destroy((err) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: 'Logout failed' });
     }
     res.clearCookie('sid');
-    // return res.status(200).json({ message: 'Logout successful' });
-    return res.redirect('/');
+    return res.status(200).json({ message: 'Logout successful' });
   });
-  }
-
-
-// about
-exports.getAbout = async (req, res) => {
-  res.render('about');
 };
 
-
-
-  //profile
-  exports.getprofile = async (req, res) => {
-    const user = await User.findOne({ where: { id: req.params.id } });
-    if (!req.session.user) {
-      return res.redirect('/login');
-    }
-    res.render('profile', { user }); // passing the user object to the template
-  };
-
-  //contact
-  exports.getContact = async(req, res, next) => {
-    const user = req.session.user;
-    res.render('contact', {
-      path: '/contact',
-      pageTitle: 'contact',user
-    });
+exports.getprofile = async (req, res) => {
+  const user = await User.findOne({ where: { id: req.params.id } });
+  if (!req.session.user) {
+    return res.redirect('/login');
   }
-  // about
-  exports.getAbout = async (req, res) => {
-    const user = req.session.user;
-    res.render('about', {user});
-    };
-  // img
-  exports.getImg = async (req, res) => {
-    const user = req.session.user;
-    res.render('image-download-form', {user});
-    };
-// history
+  res.json({ user });
+};
+
+exports.getContact = async (req, res, next) => {
+  const user = req.session.user;
+  res.json({ user });
+};
+
+exports.getAbout = async (req, res) => {
+  const user = req.session.user;
+  res.json({ user });
+};
+
+exports.getImg = async (req, res) => {
+  const user = req.session.user;
+  res.json({ user });
+};
+
 exports.getHistory = async (req, res) => {
   const user = req.session.user;
-  res.render('history', {user});
-  };
+  res.json({ user });
+};
+
+// this json do boring :"))))

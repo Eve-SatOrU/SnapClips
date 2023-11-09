@@ -11,6 +11,8 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
+app.use(bodyParser.json());
+
 app.use(
   session({
     secret: 'your-secret-key',
@@ -26,12 +28,6 @@ app.use(cors(
   }
 ));
 
-// i remove it later xDDD
-app.set("view engine", "pug");
-app.set("views", "views");
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static('public'));
-// app.use(bodyParser.json());
 const routes = require('./routes/routes');
 app.use('/', routes);
 

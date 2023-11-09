@@ -1,6 +1,9 @@
 const path = require('path');
 const puppeteer = require('puppeteer');
 // const fetch = require('node-fetch'); // Import 'node-fetch' library
+const dotenv = require('dotenv');
+require('dotenv').config();
+
 
 const getIdVideo = (url) => {
   const matching = url.includes("/video/");
@@ -11,59 +14,76 @@ const getIdVideo = (url) => {
 
 const getVideoWM = async (url) => {
   const idVideo = await getIdVideo(url);
-  const API_URL = `https://api16-normal-c-useast1a.tiktokv.com/aweme/v1/feed/?aweme_id=${idVideo}`;
-  const request = await fetch(API_URL, { // Use 'fetch' to make the API request
-    method: "GET",
-    headers: { 'Content-Type': 'application/json' }
+  const API_URL = process.env.API_URL;
+
+  const response = await fetch(`${API_URL}?aweme_id=${idVideo}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
   });
-  const body = await request.text();
-  try {
-    var res = JSON.parse(body);
-  } catch (err) {
-    console.error("Error:", err);
-    console.error("Response body:", body);
+
+  if (!response.ok) {
+    console.error('Error:', response.statusText);
+    return { error: response.statusText };
   }
-  const urlMedia = res.aweme_list[0].video.download_addr.url_list[0];
+
+  const body = await response.text();
+  const parsedResponse = JSON.parse(body);
+  const urlMedia = parsedResponse.aweme_list[0].video.download_addr.url_list[0];
+
   const data = {
     url: urlMedia,
     id: idVideo
   };
-  return data;
-}
+
+  return { withWM: data };
+};
 
 const getVideoNoWM = async (url) => {
   const idVideo = await getIdVideo(url);
-  const API_URL = `https://api16-normal-c-useast1a.tiktokv.com/aweme/v1/feed/?aweme_id=${idVideo}`;
-  const request = await fetch(API_URL, {
-    method: "GET",
-    headers: { 'Content-Type': 'application/json' } // Use 'fetch' with 'headers'
+  const API_URL = process.env.API_URL;
+
+  const response = await fetch(`${API_URL}?aweme_id=${idVideo}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
   });
-  const body = await request.text();
-  try {
-    var res = JSON.parse(body);
-  } catch (err) {
-    console.error("Error:", err);
-    console.error("Response body:", body);
+
+  if (!response.ok) {
+    console.error('Error:', response.statusText);
+    return { error: response.statusText };
   }
-  const urlMedia = res.aweme_list[0].video.play_addr.url_list[0];
+
+  const body = await response.text();
+  const parsedResponse = JSON.parse(body);
+  const urlMedia = parsedResponse.aweme_list[0].video.play_addr.url_list[0];
+
   const data = {
     url: urlMedia,
     id: idVideo
   };
-  return data;
-}
+
+  return { withoutWM: data };
+};
 
 exports.getVedios = (req, res, next) => {
-  res.render('tiktok-download-form', { videoData: null });
+  res.json({ videoData: null });
 };
 
 exports.postVideos = async (req, res, next) => {
   const url = req.body.url;
   if (url) {
-    const videoWithWM = await getVideoWM(url);
-    const videoWithoutWM = await getVideoNoWM(url); // Add logic to get the video without watermark
-    res.render('tiktok-download-form', { videoData: { withWM: videoWithWM, withoutWM: videoWithoutWM } });
+    try {
+      const videoWithWM = await getVideoWM(url);
+      const videoWithoutWM = await getVideoNoWM(url);
+
+      res.json({ videoData: { withWM: videoWithWM, withoutWM: videoWithoutWM } });
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   } else {
-    res.render('tiktok-download-form', { videoData: null });
+    res.json({ videoData: null });
   }
 };
+
+
+//API_URL=if u wanna the url contect me :")

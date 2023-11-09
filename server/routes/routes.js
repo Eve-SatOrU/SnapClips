@@ -14,9 +14,6 @@ router.get('/contact', controller.getContact);
 router.get('/about', controller.getAbout);
 //profile
 router.get('/profile/:id', controller.getprofile);
-// img
-// router.get('/upload', controller.getimgdump);
-// router.post('/upload', controller.postimgdump);
 // vid
 router.get('/tiktok-download', downloaderController.getVedios);
 router.post('/tiktok-download', downloaderController.postVideos);
