@@ -1,0 +1,31 @@
+{
+  "name": "snapclips",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "toumi meriem",
+  "license": "ISC",
+  "dependencies": {
+    "@pixelbin/admin": "^3.5.0",
+    "axios": "^1.6.0",
+    "bcrypt": "^5.1.1",
+    "chalk": "^5.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "inquirer": "^9.2.11",
+    "jimp": "^0.22.10",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.0.1",
+    "pug": "^3.0.2",
+    "puppeteer": "^21.4.1",
+    "readline": "^1.3.0",
+    "sequelize": "^6.33.0"
+  }
+}
