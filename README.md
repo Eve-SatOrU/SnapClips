@@ -9,10 +9,10 @@ To get started with the SnapClips server, follow these steps:
 1. **Clone the repository:**
 
    ```
-   git clone https://github.com/Eve-SatOrU/waittttt
+   git clone https://github.com/Eve-SatOrU/SnapClips.git -b pug
     ```
     ```
-   cd snapclips
+   cd SnapClips
     ```
 2. **Install Dependencies:**
 
