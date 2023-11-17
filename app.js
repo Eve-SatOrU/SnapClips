@@ -25,6 +25,7 @@ app.use(cors(
     credentials: true,
   }
 ));
+// add array
 
 app.set("view engine", "pug");
 app.set("views", "views");
@@ -35,6 +36,9 @@ app.use('/', routes);
 
 const controller = require('./controllers/controller');
 const User = require('./models/user');
+// Set up multer for handling file uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 sequelize.sync()
 .then(result => {

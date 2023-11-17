@@ -4,6 +4,7 @@ meta(name="viewport", content="width=device-width,initial-scale=1")
 title  page
 link(rel="shortcut icon", href="./favicon.ico", type="image/x-icon")
 link(rel="stylesheet", href="./css/style.css")
+link(href="https://releases.transloadit.com/uppy/v3.10.0/uppy.min.css", rel="stylesheet")
 link(rel="preconnect", href="https://fonts.googleapis.com")
 link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
 link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap", rel="stylesheet")
@@ -44,32 +45,59 @@ header
               a.btn-primary(href="/register")  Register
     button.nav-open-btn(data-nav-open-btn)
       ion-icon(name="menu")
-
 main
-  // Overview Section
-  section.overview#overview
-    .container1
-    if error
-        .red
-        .alert.alert-danger= error
-    form(action="/login", method="post")
-        h2 Login
-        label.label(for="userName") Full Name
-        input.box(type="text", name="userName", placeholder="Type your Full Name", required)#userName
-        label.label(for="userPassword") Password
-        .password-container
-        input.box(type="password", name="userPassword", placeholder="Type your password", required)#userPassword
-        //- label.password-label
-            input#showPassword(type="checkbox")
-        br
-        button.btn-primary(type="submit") Login
-        br
-        a.link1(href="/register")
-            p.link1 Register
+  article.container      			
     section.overview#overview
-        
+        li.features-item
+            .center
+                h3.h3.features-item-title.tiktok Adding audio watermatk 
+                h5 this will add watermark to your audio
+                br
+                button.btn-primary.center1#browse Select Files
+                script(type="module").
+                  
+                  import {
+                      Uppy,
+                      Dashboard,
+                      ImageEditor,
+                      RemoteSources,
+                      Transloadit,
+                    } from 'https://releases.transloadit.com/uppy/v3.10.0/uppy.min.mjs'
+                    const uppy = new Uppy()
+                      .use(Transloadit, {
+                        waitForEncoding: true,
+                        alwaysRunAssembly: true,
+                        assemblyOptions: {
+                          params: {
+                            template_id: 'ec25312cecb44f35a451a433e3c9a41f',
+                            // To avoid tampering, use Signature Authentication:
+                            // https://transloadit.com/docs/topics/signature-authentication/
+                            auth: {
+                              key: 'a077a4828c844e4ba2455fd39358ffd2',
+                            },
+                          },
+                        },
+                      })
+                      .use(Dashboard, { trigger: '#browse' })
+                      .use(ImageEditor, { target: Dashboard })
+                      .use(RemoteSources, {
+                        companionUrl: 'https://api2.transloadit.com/companion',
+                      })
+                      .on('complete', ({ transloadit }) => {
+                        // Due to `waitForEncoding:true` this is fired after encoding is done.
+                        // Alternatively, set `waitForEncoding` to `false` and provide a `notify_url`
+                        console.log(transloadit) // Array of Assembly Statuses
+                        transloadit.forEach((assembly) => {
+                          console.log(assembly.results) 
+                        // Array of all encoding results
+                        })
+                      })
+                      .on('error', (error) => {
+                        console.error(error)
+                      })
+  
 
-    // Footer
+  	
 footer
   .container
     .footer-brand

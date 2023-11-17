@@ -1020,3 +1020,19 @@ text-align: center;}
 .red:hover{
   color:blueviolet;
 }
+
+
+
+.alert{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  /* align-items:flex-start; */
+  justify-content: center;
+  text-align: center;
+  color:red;
+  border: 1px solid red;
+}

@@ -2,27 +2,13 @@ meta(charset="UTF-8")
 meta(http-equiv="X-UA-Compatible", content="IE=edge")
 meta(name="viewport", content="width=device-width,initial-scale=1")
 title  page
-//
-   
-  		- favicon
-  	
 link(rel="shortcut icon", href="./favicon.ico", type="image/x-icon")
-//
-   
-  		- custom css link
-  	
 link(rel="stylesheet", href="./css/style.css")
-//
-   
-  		- google font link
-  	
 link(rel="preconnect", href="https://fonts.googleapis.com")
 link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
 link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap", rel="stylesheet")
-//
-   
-  		- #HEADER
-  	
+
+
 header
   .container
     a.logo(href="/")
@@ -39,6 +25,8 @@ header
           a.navbar-link(href="/contact") contact
         li
           a.navbar-link(href="/tiktok-download") Download Video 
+        li 
+          a.navbar-link(href="/audio") Audio Watermark 
         li
           a.navbar-link(href="/image-download") Download Images
         if user 
@@ -48,7 +36,7 @@ header
             a.navbar-link(href="/history") History
           li
             button 
-              a.btn-primary(href="/register")  Register
+              a.btn-primary(href="/logout")  Logout
 
         else
           li

@@ -39,9 +39,10 @@ exports.postRegister = async (req, res, next) => {
   const { userName, userPassword, email } = req.body;
 
   if (!validateStrongPassword(userPassword)) {
-    return res.status(400).json({
-      message: "Password must be at least 8 characters long and must contain a combination of letters, numbers, and special characters."
-    });
+    // return res.status(400).json({
+    //   message: "Password must be at least 8 characters long and must contain a combination of letters, numbers, and special characters."
+    // });
+    return res.render('register', { error: "Password must be at least 8 characters long and must contain a combination of letters, numbers, and special characters." });
   }
   const existingUser = await User.findOne({
     where: {
@@ -52,7 +53,8 @@ exports.postRegister = async (req, res, next) => {
     }
   });
   if (existingUser) {
-    return res.status(400).json({ error: 'Username or email is already taken.' });
+    // return res.status(400).json({ error: 'Username or email is already taken.' });
+    return res.render('register', { error: 'Username or email is already taken.' })
   }
 
   try {
@@ -61,7 +63,7 @@ exports.postRegister = async (req, res, next) => {
       userPassword,
       email
     });
-    res.status(201).json({ message: 'User registered successfully' });
+    res.redirect('/login');
   } catch (error) {
     res.status(500).json({ error: error.message });
   };
@@ -77,15 +79,18 @@ exports.postLogin = (async (req, res) => {
   try {
     const user = await User.findOne({ where: { userName } });
     if (!user) {
-      return res.status(400).json({ error: 'User not found' });
+      // return res.status(400).json({ error: 'User not found' });
+      return res.render('login', { error: 'User not found' });
     }
     const isPasswordValid = await bcrypt.compare(userPassword, user.userPassword);
     if (!isPasswordValid) {
-      return res.status(401).json({ error: 'Incorrect password' });
+      // return res.status(401).json({ error: 'Incorrect password' });
+      return res.render('login', { error: 'Incorrect password' });
     }
     req.session.user = user;
     req.session.userId = user.id;
-    res.status(200).json({ message: 'User logged in successfully' });
+    // res.status(200).json({ message: 'User logged in successfully' });
+    res.redirect('/');
   }
   catch (error) {
     res.status(500).json({ error: error.message });
@@ -108,7 +113,8 @@ exports.postLogout = async (req, res) => {
 
 // about
 exports.getAbout = async (req, res) => {
-  res.render('about');
+  const user = req.session.user;
+  res.render('about', {user});
 };
 
 
@@ -130,11 +136,6 @@ exports.getAbout = async (req, res) => {
       pageTitle: 'contact',user
     });
   }
-  // about
-  exports.getAbout = async (req, res) => {
-    const user = req.session.user;
-    res.render('about', {user});
-    };
   // img
   exports.getImg = async (req, res) => {
     const user = req.session.user;

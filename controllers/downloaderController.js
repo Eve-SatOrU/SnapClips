@@ -57,7 +57,8 @@ const getVideoNoWM = async (url) => {
 }
 
 exports.getVedios = (req, res, next) => {
-  res.render('tiktok-download-form', { videoData: null });
+  const user = req.session.user;
+  res.render('tiktok-download-form', { videoData: null, user: user});
 };
 
 exports.postVideos = async (req, res, next) => {
@@ -72,3 +73,6 @@ exports.postVideos = async (req, res, next) => {
 };
 
 // again if u wanna api url contect me :")) 
+
+
+// now audio watermarking is enabled

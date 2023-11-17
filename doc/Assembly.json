@@ -1,0 +1,30 @@
+{
+    "steps": {
+      ":original": {
+        "robot": "/upload/handle"
+      },
+      "audio_imported": {
+        "robot": "/http/import",
+        "result": true,
+        "url": "https://demos.transloadit.com/inputs/powered-by.mp3"
+      },
+      "merged": {
+        "use": {
+          "steps": [
+            {
+              "name": "audio_imported",
+              "as": "audio"
+            },
+            {
+              "name": ":original",
+              "as": "audio"
+            }
+          ]
+        },
+        "robot": "/audio/merge",
+        "result": true,
+        "ffmpeg_stack": "v4.3.1",
+        "preset": "mp3"
+      }
+    }
+  }
